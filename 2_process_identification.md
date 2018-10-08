@@ -55,6 +55,48 @@ Porter cathegorization
 
 #### Relationship between processes
 
+* Horizontal
+* Vertical
+* Specialization
+
+##### Horizontal
+
+* Chain of processes and organization performs to deliver value to customers and stakeholders
+* a mechanism to group high-level business processes according to an order relation
+
+e.g. Procure-to-service
+
+> __IMAGE FROM SLIDES__
+
+e.g. Wholesaler
+
+> __IMAGE FROM SLIDES__
+
+__main steps__:
+
+* Source
+* Make
+* Deliver
+* Service
+
+How to identify horizontal boundaries in value chains:
+
+* Change of key business object in the process
+* Change of granularity of main business object
+* Change in frequency/time
+* Change in intermediate outcome/resolution/objective
+* Core processes
+  * decompose by identifying intermediate outcomes
+* Support processes
+* Management processes
+
+###### Case/Function Matrix
+
+1. Identify case types
+2. Identify function for case types
+3. Construct one or more function matrices
+4. Identify processes
+
+##### Vertical
+
 > __SLIDES__
->
-> __EXAMPLE IMAGE FROM SLIDES__
