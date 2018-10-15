@@ -93,3 +93,26 @@ used like a __cycle__ to represent recurring activities that has to be done till
 
 * __Pool__: captures a resource class. Used to model business party
 * __Lane__: captures a resource subclass within a pool. Used to model departments
+
+#### Communication between pools
+
+A __Message Flow__ represents a flow of information between two processes parties (Pools) (_represented by a dashed arrow_)
+
+#### Pools, Lanes and Flows Syntactic rules
+
+1. A __Sequence Flow__ _cannot_ cross the boundaries of a Pool (_message flows can_)
+2. Both __Sequence Flow__ and __Message Flow__ _can_ cross the boundaries of Lanes
+3. ...?
+
+### Business Objects (a.k.a. __artifacts__)
+
+* Physical or digital information artifacts
+* Physical material (_e.g. a box containing stuff_)
+
+Represented like a _txt file_
+
+The __Status__ of the artifact can be denoted between __square brakets__
+
+### Text annotation
+
+attacched to processes and represented by an __opened but not closes square bracket__
