@@ -43,25 +43,33 @@ def compute_edit_distance_variability(log, n=100):
     output:
         average edit distance between traces of the log
     '''
-    with Bar('Edit distance', max=n*(n-1)/2, suffix='%(percent)d%%') as bar:
+
+    # we first refactor every trace as a "space separated"
+    # string of events in order to reduce the workload
+    # of the pairwise comparison
+    with Bar('Preprocessing', max=n) as bar:
+        traces = []
+        for trace in log[0:n]:
+            events = []
+            for event in trace:
+                events.append(event["concept:name"])
+            events = ' '.join(events)
+            traces.append(events)
+            bar.next()
+
+    # we then proceed to calculate the pairwise distance
+    # between each pair of traces
+    with Bar('Edit dist', max=(n*(n-1)/2), suffix='%(percent)d%%') as bar:
         distances = []
-        for index, trace_one in enumerate(log[0:n]):
-            events_one = []
-            for event in trace_one:
-                events_one.append(event["concept:name"])
-            events_one = ' '.join(events_one)
-            for trace_two in log[index+1:n]:
-                events_two = []
-                for event in trace_two:
-                    events_two.append(event["concept:name"])
-                events_two = ' '.join(events_two)
-                distances.append(ed(events_one, events_two))
+        for index, trace_one in enumerate(traces):
+            for trace_two in traces[index+1:]:
+                distances.append(ed(trace_one, trace_two))
                 bar.next()
 
     return np.average(distances)
 
 
-def compute_my_variability(log, n=100, suffix='%(percent)d%%'):
+def compute_my_variability(log, n=100):
     '''
     compute a measure of variability defined by me
     ---Jaccard distance---
@@ -71,17 +79,25 @@ def compute_my_variability(log, n=100, suffix='%(percent)d%%'):
     output:
         average Jaccard distance between traces of the log
     '''
-    with Bar('Jaccard distance', max=n*(n-1)/2) as bar:
+
+    # As before we first refactor every trace as a list of events
+    # in order to reduce the workload of the pairwise comparison
+    with Bar('Preprocessing', max=n) as bar:
+        traces = []
+        for trace in log[0:n]:
+            events = []
+            for event in trace:
+                events.append(event["concept:name"])
+            traces.append(events)
+            bar.next()
+
+    # we then proceed to calculate the pairwise distance
+    # between each pair of traces
+    with Bar('Jaccard dist', max=(n*(n-1)/2), suffix='%(percent)d%%') as bar:
         distances = []
-        for index, trace_one in enumerate(log[0:n]):
-            events_one = []
-            for event in trace_one:
-                events_one.append(event["concept:name"])
-            for trace_two in log[index+1:n]:
-                events_two = []
-                for event in trace_two:
-                    events_two.append(event["concept:name"])
-                distances.append(jd(set(events_one), set(events_two)))
+        for index, trace_one in enumerate(traces):
+            for trace_two in traces[index+1:]:
+                distances.append(jd(set(trace_one), set(trace_two)))
                 bar.next()
 
     return np.average(distances)
@@ -98,11 +114,9 @@ if __name__ == "__main__":
 
     n = input("Select the number of traces to analyze (default 5): ")
 
-    '''
-    for testing purposes, the number of traces to be analyzed
-    has been reduced by default to 5 in order to reduce the computational
-    time and get a faster result
-    '''
+    # for testing purposes, the number of traces to be analyzed
+    # has been reduced by default to 5 in order to reduce the computational
+    # time and get a faster result
     if not n or n == "1":
         if n == "1":
             print("minimum traces required = 2")
