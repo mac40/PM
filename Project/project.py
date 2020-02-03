@@ -8,10 +8,11 @@ author: Marco Baggio
 mat: 1179124
 '''
 import argparse
+import time
 
 import numpy as np
-from nltk import jaccard_distance as jd
 from nltk import edit_distance as ed
+from nltk import jaccard_distance as jd
 from pm4py.algo.filtering.log.variants import variants_filter
 from pm4py.objects.log.importer.xes import factory as xes_import_factory
 from progress.bar import Bar
@@ -109,8 +110,10 @@ if __name__ == "__main__":
 
     print("number of traces in the event log:" + str(len(log)))
 
+    start = time.time()
     print("Number of variants in the event log: {}"
           .format(compute_variant_variability(log)))
+    print("Execution time = {}s".format(time.time()-start))
 
     n = input("Select the number of traces to analyze (default 5): ")
 
@@ -124,8 +127,14 @@ if __name__ == "__main__":
         n = 5
     n = int(n)
 
+    start = time.time()
+    print("EDIT DISTANCE:")
     print("Average edit distance between {} traces of the event log: {}"
           .format(n, compute_edit_distance_variability(log, n)))
+    print("Execution time = {}s".format(time.time()-start))
 
+    start = time.time()
+    print("JACCARD DISTANCE:")
     print("Average Jaccard distance between {} traces of the event log: {}"
           .format(n, compute_my_variability(log, n)))
+    print("Execution time = {}s".format(time.time()-start))
