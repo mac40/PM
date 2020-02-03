@@ -111,6 +111,7 @@ if __name__ == "__main__":
     print("number of traces in the event log:" + str(len(log)))
 
     start = time.time()
+    print("NUMBER OF VARIANTS")
     print("Number of variants in the event log: {}"
           .format(compute_variant_variability(log)))
     print("Execution time = {}s".format(time.time()-start))
