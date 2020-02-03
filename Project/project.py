@@ -127,6 +127,10 @@ if __name__ == "__main__":
         print("number of traces set to 5 by default")
         n = 5
     n = int(n)
+    if n > len(log):
+        print("maximum number of traces exceeded")
+        print("setting the number of traces to {}".format(len(log)))
+        n = len(log)
 
     start = time.time()
     print("EDIT DISTANCE:")
